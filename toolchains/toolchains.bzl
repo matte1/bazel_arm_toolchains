@@ -197,6 +197,12 @@ def _impl_cc_arm_toolchain_config(ctx):
                     "-D__TIME__=\"redacted\"",
                 ])],
             ),
+            flag_set(
+                actions = all_cpp_compile_actions,
+                flag_groups = [flag_group(flags = [
+                    "-std=c++17",
+                ])],
+            ),
         ],
     )
 
