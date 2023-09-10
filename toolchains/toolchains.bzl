@@ -185,12 +185,9 @@ def _impl_cc_arm_toolchain_config(ctx):
             flag_set(
                 actions = all_compile_actions,
                 flag_groups = [flag_group(flags = [
-                    "-U_FORTIFY_SOURCE",
-                    "-fstack-protector",
                     "-Wall",
                     "-Wunused-but-set-parameter",
                     "-Wno-free-nonheap-object",
-                    "-fno-omit-frame-pointer",
                     "-fdiagnostics-color",
                     "-no-canonical-prefixes",
                     "-fno-canonical-system-headers",
