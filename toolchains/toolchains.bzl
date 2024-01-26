@@ -41,7 +41,13 @@ filegroup(
     name = "all_files",
     srcs = glob(["**"]),
     visibility = ["//visibility:public"],
-)"""
+)
+filegroup(
+    name = "readelf",
+    srcs = ["bin/arm-none-eabi-readelf"],
+    visibility = ["//visibility:public"],
+)
+"""
 
     http_archive(
         name = toolchain["name"],
@@ -74,6 +80,7 @@ def toolchain_defs(host_arch, host_os, target, version, cpu):
     name_with_cpu = "{}-{}".format(toolchain["name"], cpu)
 
     all_files_name = "{0}_all_files".format(toolchain["name"])
+    readelf_name = "{0}_readelf".format(toolchain["name"])
     if not native.existing_rule(all_files_name):
         native.filegroup(
             name = all_files_name,
@@ -81,6 +88,13 @@ def toolchain_defs(host_arch, host_os, target, version, cpu):
                 "@{0}//:all_files".format(toolchain["name"]),
                 "//toolchains:wrappers",
             ],
+        )
+        native.filegroup(
+            name = readelf_name,
+            srcs = [
+                "@{0}//:readelf".format(toolchain["name"]),
+            ],
+            visibility = ["//visibility:public"],
         )
 
     cc_arm_toolchain_config(
