@@ -264,12 +264,25 @@ def _impl_cc_arm_toolchain_config(ctx):
         ],
     )
 
+    feature_strip_all = feature(
+        name = "strip_all",
+        flag_sets = [
+            flag_set(
+                actions = all_link_actions,
+                flag_groups = [flag_group(flags = [
+                    "-Wl,--strip-all",
+                ])],
+            ),
+        ]
+    )
+
     features = [
         feature_compiler_flags,
         feature_linker_flags,
         feature_opt,
         feature_dbg,
         feature_cpu,
+        feature_strip_all,
     ]
 
     return cc_common.create_cc_toolchain_config_info(
